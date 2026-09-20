@@ -1,0 +1,4 @@
+ultralytics>=8.0.0
+onnxruntime>=1.17.0
+paho-mqtt>=1.6.1
+opencv-python>=4.9.0

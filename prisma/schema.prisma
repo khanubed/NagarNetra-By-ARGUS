@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EventType {
+  POTHOLE
+  CRACK
+  DAMAGE
+  MISSING_DIVIDER
+  SIGNBOARD_ISSUE
+  ZEBRA_CROSSING_ISSUE
+  WATERLOGGING
+  VEHICLE_DENSITY
+  PEDESTRIAN_RISK
+  NEAR_MISS
+  RASH_DRIVING
+  HIT_AND_RUN
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum AccessClass {
+  PUBLIC
+  RESTRICTED
+}
+
+enum EventStatus {
+  DETECTED
+  VERIFIED
+  DUPLICATE
+  REJECTED
+  TICKETED
+}
+
+enum TicketState {
+  DETECTED
+  VERIFIED
+  ASSIGNED
+  ACKNOWLEDGED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  REJECTED
+  DUPLICATE
+  ON_HOLD
+  REOPENED
+}
+
+model Event {
+  id               BigInt   @id @default(autoincrement())
+  eventUuid        String   @unique
+  deviceId         BigInt
+  eventType        EventType
+  severity         Severity
+  accessClass      AccessClass
+  aiConfidence     Decimal  @db.Decimal(5,2)
+  finalConfidence  Decimal  @db.Decimal(5,2)
+  // Note: PostGIS geography types require raw queries or extensions
+  // location         Unsupported("geography(Point,4326)")
+  wardId           BigInt?
+  zoneId           BigInt?
+  roadSegmentId    BigInt?
+  observationCount Int      @default(1)
+  firstObservedAt  DateTime
+  lastObservedAt   DateTime
+  mediaKey         String?
+  status           EventStatus
+  tickets          Ticket[]
+  createdAt        DateTime @default(now())
+
+  @@index([wardId, eventType, lastObservedAt])
+}
+
+model Ticket {
+  id                    BigInt      @id @default(autoincrement())
+  ticketRef             String      @unique
+  eventId               BigInt
+  event                 Event       @relation(fields: [eventId], references: [id])
+  blackSpotId           BigInt?
+  parentTicketId        BigInt?
+  departmentId          BigInt
+  wardId                BigInt
+  state                 TicketState
+  priority              Severity
+  slaResponseDueAt      DateTime
+  slaResolutionDueAt    DateTime
+  escalationLevel       Int         @default(0)
+  resolutionMediaKey    String?
+  holdReason            String?
+  createdAt             DateTime    @default(now())
+
+  @@index([departmentId, state, slaResolutionDueAt])
+}

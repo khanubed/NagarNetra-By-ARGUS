@@ -1,0 +1,23 @@
+{
+  "name": "nagarnetra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mobile Urban Intelligence Platform Using Public Transport Fleet",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:migrate": "npx prisma migrate dev --schema=prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "prisma": "^5.10.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.0"
+  }
+}
