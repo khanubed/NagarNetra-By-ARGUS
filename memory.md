@@ -107,3 +107,21 @@ Implemented the `/edge-simulator` page to showcase the real-time onboard compute
   - A **Camera Viewport HUD** cycling through mock images (`pothole.jpeg`, `waterlogging.jpeg`, etc.) every 3 seconds to simulate a live video feed. Includes a procedural scanline overlay, top HUD with recording status/speed/time, and bottom HUD with GPS/TPM status.
   - A **Live Detection Stream Log** that scrolls down with simulated real-time inference results (anomaly label, confidence, latency).
   - A dropdown selector in the `PageHeader` allowing users to switch between active buses, simulating multi-vehicle monitoring.
+
+## 13. Public Portal Prototype (`apps/portal`)
+- Initialized Tailwind CSS (v3.4.17) and bypassed Vite cache to resolve PostCSS plugin conflicts.
+- Applied `DESIGN_SYSTEM.md` styling rules globally across the portal:
+  - Restrained border radii: Flattened bubbly `rounded-2xl` components to strict `rounded-lg` or `rounded-md` civic-tech aesthetic.
+  - Restrained typography: Refactored heavy `font-bold` labels into cleaner `font-semibold`, preserving `font-black` solely for primary KPIs.
+- Implemented `react-router-dom` v7 with a fully responsive `PublicAppShell` layout and Top Navigation Header.
+- Completed all frontend pages based strictly on `ARCHITECTURE.md` specs:
+  - **Road Health (`/road-health`)**: Interactive Leaflet map with segment-scored polyline rendering and multi-type hazard filters (Pothole, Waterlogging, Cave-in).
+  - **Smart Route Planner (`/route-planner`)**: 4 ranked route options (fastest/safest/best road quality/lowest congestion) utilizing simulated pathfinding algorithms and semantic color coding.
+  - **Black Spot Explorer (`/black-spots`)**: Transformed the authority dashboard view into an educational, public-friendly interface highlighting causal factors (without exposing sensitive restricted-class data), including the "Why is this a Black Spot?" pitch.
+  - **Verification Center (`/verification`)**: Citizen portal to review edge-case AI detections, strictly incorporating the segmented Confidence Composition Visual (AI Confidence -> Citizen Verification -> Engineer Verification). Uses local MOCK-IMAGES.
+  - **Issue Tracker (`/track/:id`)**: Dynamic public ticket tracking via ID search (`useParams`/`useNavigate`), featuring a strict 6-stage horizontal SLA node-and-connector pipeline (Detect -> Ward -> Department -> Ticket -> Resolution -> Escalate). Handles 404 Not Found states and lists recent tickets when no ID is provided.
+  - **Transparency Dashboard (`/transparency`)**: Real-time metrics visualization (Recharts) showing taxpayer savings, plus the required Department Scorecards table tracking SLA compliance (with visual progress bars) and resolution time.
+  - **Ward Intelligence (`/ward-intelligence`)**: Localized leaderboards ranking 198 BBMP wards based on issue resolution rates and active hazards, with search/filtering capabilities.
+  - **Alert Center (`/alerts`)**: Feed of active detours, waterlogging warnings, and an omnichannel subscription panel (Push/WhatsApp/SMS/Email).
+  - **Civic Hub (`/civic-hub`)**: Landing page for the citizen mobile app with gamification logic (Civic Trust Points) and active Civic Campaigns (Voting & Feedback).
+  - **Home Dashboard (`/`)**: High-impact landing page tying all the public-facing features together (City Pulse, Urban Risk Index Radar Chart, Live Leaflet Map, Live Active Feed).
