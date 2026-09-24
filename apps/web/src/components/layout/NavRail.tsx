@@ -22,9 +22,10 @@ import { type RootState } from "../../app/store";
 
 const NAV_ITEMS = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
+  { path: "/edge-simulator", label: "Edge Simulator", icon: Cpu },
   { path: "/alerts", label: "Alerts", icon: BellRing },
   { path: "/road-crimes", label: "Road Crimes", icon: ShieldAlert },
-  { path: "/edge-simulator", label: "Edge Simulator", icon: Cpu },
+  
   { path: "/tickets", label: "Tickets", icon: Ticket },
   { path: "/heatmaps", label: "Heatmaps", icon: Map },
   { path: "/blackspots", label: "Black Spots", icon: AlertTriangle },

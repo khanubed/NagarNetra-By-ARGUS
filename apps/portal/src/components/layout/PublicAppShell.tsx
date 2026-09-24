@@ -15,7 +15,7 @@ const NAV_LINKS = [
   { path: '/civic-hub', label: 'Civic Hub' },
 ];
 
-export const PublicAppShell = () => {
+export default function PublicAppShell() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
