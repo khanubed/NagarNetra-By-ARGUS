@@ -85,6 +85,22 @@ Full requirement tables with acceptance criteria live in the module sections bel
 | FR-GOV-07/08/09 | Citizen + engineer verification signals compounding into final confidence | MUST |
 | FR-GOV-10 | Multi-channel notification on state change | MUST |
 
+### 2.5 Module 5 — Road Crime Intelligence (Hit-and-Run & ANPR)
+
+| ID | Requirement | Priority |
+|---|---|---|
+| RC-1 | Trigger incident heuristics only on collision-signature or sudden-departure patterns | P0 |
+| RC-2 | Track offending vehicle across minimum 5 consecutive frames | P0 |
+| RC-3 | Extract plate text with per-character and overall OCR confidence | P0 |
+| RC-4 | Validate plate format against Indian plate regex | P0 |
+| RC-5 | Package evidence: minimum 3 keyframes, GPS, heading, speed, UTC timestamp | P0 |
+| RC-6 | Hash every frame and sign packet hash with device's private key | P0 |
+| RC-7 | Incident-class events bypass normal transmission queueing | P0 |
+| RC-8 | Auto-create Case routed exclusively to Traffic Police | P0 |
+| RC-10 | Evidence packets are immutable once stored | P0 |
+| RC-11 | Every view of restricted incident/plate data is audit-logged | P0 |
+| RC-14 | Restricted data never reachable via any public-facing endpoint | P0 |
+
 ## 3. Edge AI Architecture
 
 Full pipeline, model inventory, dataset/training/evaluation strategy: [`AI_PIPELINES.md`](./AI_PIPELINES.md).
@@ -142,6 +158,7 @@ DATABASE / CACHE / OBJECT STORE
 | Users | Account, role, and jurisdiction administration |
 | Settings | SLA matrix, routing matrix, risk weights, thresholds — Super Admin only |
 | Audit Logs | Immutable record of every consequential action |
+| Road Crimes (Restricted) | Command Center, Case Detail (Evidence Viewer), Repeat Offenders, Hotspots |
 
 Full component/chart/filter/permission/API specification per page: see the SRS-level detail retained in project history; this file gives architectural scope, `FRONTEND.md` gives implementation structure.
 
@@ -204,6 +221,7 @@ Full detail: [`BACKEND.md`](./BACKEND.md) §Authentication/RBAC.
   signature = sign(packet_hash, device_private_key)
   ```
   Each packet embeds the previous packet's hash (per-device hash chain) — retroactive alteration is detectable.
+- **Law-Enforcement Evidence Workflow:** The system generates BSA Section 63 compliant evidence certificates (tamper-evident packet hash + device ID + timestamp) for hit-and-run cases. These are routed exclusively to Traffic Police.
 - **Framing discipline:** the platform produces *tamper-evident* evidence. It does not assert legal admissibility — that is a determination for the competent authority. Never claim "court-admissible" in product copy.
 - ANPR runs only on incident-flagged tracks, never as a continuous surveillance sweep. No facial recognition anywhere in the pipeline.
 

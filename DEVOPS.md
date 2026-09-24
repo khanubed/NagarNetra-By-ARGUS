@@ -102,7 +102,7 @@ jobs:
 ┌─────────────────────────────────────────────────────────────┐
 │  BUS EDGE DEVICE   detection · buffer · package · sign      │
 └───────────────┬─────────────────────────────────────────────┘
-                │  MQTT over TLS
+                │  MQTT over TLS (incident events jump queue)
                 ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  CLOUD GATEWAY     MQTT broker · device auth · rate limit    │

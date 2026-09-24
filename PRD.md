@@ -101,7 +101,9 @@ Full requirement tables with IDs (`FR-EDGE-*`, `FR-EPE-*`, `FR-UIP-*`, `FR-GOV-*
 | Edge Processing | On-device inference, offline operation, local buffer, multi-frame confirmation, dedup, GPS/time tagging, auto-sync |
 | Urban Intelligence | Event ingestion & classification, jurisdiction resolution, Urban Risk Index, Black Spot detection, Route Quality Score |
 | Governance | Auto-routing, ticket creation, SLA assignment, state transition audit, auto-escalation, citizen + engineer verification signals |
+| Road Crimes | Track offending vehicle, extract plate OCR, package timestamped/GPS tamper-evident evidence, auto-create police case |
 | Dashboard | All 13 pages functional with live data, RBAC-scoped |
+| Public Portal | Home dashboard, route planner, road health map, black spot explorer, verification center, issue tracking |
 | Public Portal | Home dashboard, route planner, road health map, black spot explorer, verification center, issue tracking |
 
 ## 8. Non-Functional Requirements

@@ -92,6 +92,7 @@ HTTP/MQTT/WS → ROUTE (schema validation) → CONTROLLER (auth, RBAC, scope)
 | Departments | `GET /departments/performance`, `/departments/:id/metrics` |
 | Reports | `GET /reports/templates`, `POST /reports/generate`, `GET /reports/:id/download` |
 | Admin | `GET/POST /users`, `GET/PUT /settings/:key`, `GET /audit-logs` |
+| Road Crimes | `GET /road-crimes/cases`, `/road-crimes/cases/:id`, `PATCH /road-crimes/cases/:id/status`, `GET /road-crimes/cases/:id/evidence-certificate`, `GET /road-crimes/repeat-offenders`, `GET /road-crimes/hotspots` |
 | Public | `GET /public/summary`, `/public/scores`, `/public/events`, `POST /public/routes/plan`, `POST /public/verification/:eventId/vote` |
 
 **Representative contract — ticket transition:**
@@ -181,7 +182,19 @@ Indexes: GIST(location); BTREE(ward_id, event_type, last_observed_at); UNIQUE(ev
 
 Indexes: BTREE(department_id, state, sla_resolution_due_at); BTREE(ward_id, state); partial index WHERE state NOT IN ('CLOSED','REJECTED').
 
-**Supporting tables:** `users, roles, permissions, role_permissions, user_roles, departments, alerts, sla_rules, ticket_transitions, risk_scores, black_spots, black_spot_events, route_scores, city_scores, citizen_reports, citizen_verifications, evidence_packets, anpr_records, vehicles, bus_devices, routes, wards, zones, road_segments, notifications, audit_logs`.
+**`cases` (Road Crime Law-Enforcement Workflow)**
+| Column | Type | Notes |
+|---|---|---|
+| id | BIGSERIAL PK | |
+| case_number | TEXT UNIQUE | e.g. "RC-2026-0917-0042" |
+| incident_event_id | BIGINT FK incident_events | |
+| status | case_status_enum | NEW, UNDER_REVIEW, SUSPECT_TRACED, ACTION_TAKEN, CLOSED, REJECTED |
+| assigned_officer_id | BIGINT FK | |
+| repeat_offender_flag| BOOLEAN | |
+| linked_case_ids | UUID[] | |
+| rejection_reason | TEXT | |
+
+**Supporting tables:** `users, roles, permissions, role_permissions, user_roles, departments, alerts, sla_rules, ticket_transitions, risk_scores, black_spots, black_spot_events, route_scores, city_scores, citizen_reports, citizen_verifications, incident_events, anpr_records, evidence_packets, cases, case_activity_log, evidence_access_log, vehicles, bus_devices, routes, wards, zones, road_segments, notifications, audit_logs`.
 
 **Integrity rules:**
 - All geometry columns SRID 4326 with GIST indexes; geography type for metre-accurate distance without manual projection.
@@ -314,6 +327,31 @@ DETECTED → VERIFIED → ASSIGNED → ACKNOWLEDGED → IN_PROGRESS → RESOLVED
    └→ DUPLICATE (merged into parent)       └→ back to IN_PROGRESS     └→ REOPENED
 
 ESCALATED is a flag settable on any state between ASSIGNED and RESOLVED on SLA breach.
+```
+
+**Case State Machine (Road Crimes Workflow):**
+```
+        ┌─────────┐
+        │   NEW    │  ← auto-created the instant evidence packet is verified
+        └────┬─────┘
+             │ officer opens the case
+        ┌────▼─────────┐
+        │ UNDER_REVIEW  │
+        └────┬──────────┘
+             │
+     ┌───────┼────────────────┐
+     │                         │
+┌────▼─────────┐      ┌────────▼────────┐
+│ REJECTED      │      │ SUSPECT_TRACED  │
+│ (false        │      └────────┬────────┘
+│  positive)    │               │
+└───────────────┘      ┌────────▼────────┐
+                        │  ACTION_TAKEN   │  (challan issued / FIR filed / notice sent)
+                        └────────┬────────┘
+                                 │
+                        ┌────────▼────────┐
+                        │     CLOSED       │
+                        └─────────────────┘
 ```
 
 **SLA matrix:**

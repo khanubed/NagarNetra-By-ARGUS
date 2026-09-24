@@ -28,6 +28,7 @@ Three principles govern every screen:
 | `--muted-foreground` | `#8B94A4` | Secondary text, labels, captions |
 | `--primary` | `#3B9FE0` | Primary actions, active nav, links |
 | `--accent` | `#2CC4C9` | Secondary emphasis, data highlights |
+| `--restricted-accent`| `#DC2626` | Deep Red/Amber for law enforcement/ANPR modules |
 
 Not pure black: layered near-black surfaces so cards visibly "lift" off the background. Accent colours are desaturated/brightened relative to light mode so they don't vibrate against dark backgrounds.
 

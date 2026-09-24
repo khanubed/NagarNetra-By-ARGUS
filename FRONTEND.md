@@ -80,6 +80,10 @@ apps/web/src/                       # same pattern applies to apps/portal
 /users                     → Users (admin)
 /settings                  → Settings (admin)
 /audit-logs                → Audit Logs
+/road-crimes               → Road Crime Command Center (restricted)
+/road-crimes/:caseId       → Case Detail (restricted)
+/road-crimes/repeat-offenders → Repeat Offenders (restricted)
+/road-crimes/hotspots      → Road Crime Hotspots (restricted)
 
 # Public Portal (apps/portal)
 /                          → Public Home Dashboard
@@ -184,9 +188,9 @@ features/blackspots/
 - Zod schemas mirror backend Zod validation contracts (shared via `packages/types` where feasible) so a contract change surfaces as a type error at build time, not a runtime failure.
 - Server is always the authority: client validation is UX, not security — every mutation is re-validated server-side (see `BACKEND.md`).
 
-## 13. Dashboard Screens (apps/web)
-
-Dashboard, Alerts, Heatmaps, Black Spots (+ detail), Road Health, Traffic Analytics, Risk Analytics, Department Performance (+ detail), City Pulse Score, Reports, Users, Settings, Audit Logs. Full spec: `ARCHITECTURE.md` §5.
+## 13. Dashboard
+- Persistent left navigation rail, grouped: Operations (Dashboard, Alerts, Tickets) · Intelligence (Heatmaps, Black Spots, Road Health, Traffic, Risk) · Governance (Department Performance, City Pulse, Reports) · Administration (Users, Settings, Audit Logs) · Enforcement (Road Crimes - restricted).
+- Top command bar: global search, ward/zone scope selector, date range, live-connection indicator, notification tray, theme toggle, user menu.
 
 ## 14. Mobile App Screens (apps/mobile — React Native)
 
@@ -194,7 +198,6 @@ Dashboard, Alerts, Heatmaps, Black Spots (+ detail), Road Health, Traffic Analyt
 
 **Citizen App:** Home (city snapshot) → Map → Route Planner → Route Comparison → Route Detail; Report Issue → Capture → Locate → Submit; Verify; My Reports → Issue Timeline; Alerts (subscriptions).
 
-Both share the design system and a subset of `packages/ui` components adapted for React Native (or a parallel native-styled set following identical tokens). Offline queueing uses a client-generated idempotency key per write, replayed in order on reconnect, with server-authoritative conflict resolution — never silently discard a queued action.
 
 ## 15. Public Portal Screens (apps/portal)
 

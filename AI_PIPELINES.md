@@ -23,6 +23,8 @@ CLASS ROUTER
       ▼
 EVENT GENERATOR     dedup, GPS/time tag, keyframe annotate, package
       ▼
+EVIDENCE PACKAGER   (incident-class only) 3 keyframes, SHA-256 hash, signature
+      ▼
 TRANSMIT → RISK ENGINE → GOVERNANCE ENGINE
 ```
 
@@ -32,6 +34,7 @@ TRANSMIT → RISK ENGINE → GOVERNANCE ENGINE
 - Vehicle counting uses track identities, not raw per-frame detections, to avoid double-counting the same vehicle across frames.
 - Trajectory instability (sudden heading change, abrupt deceleration) on a tracked vehicle, corroborated by relative speed to nearby pedestrian tracks, is the basis for near-miss and rash-driving detection.
 - Hit-and-run detection combines an abrupt trajectory change on a vehicle track, an impact-like IMU signature (see §15), and rapid departure from the scene.
+- The offending vehicle must be tracked across a minimum of 5 consecutive frames before attempting plate extraction.
 
 ## 3. ANPR Pipeline
 
@@ -46,10 +49,11 @@ OCR (PaddleOCR / EasyOCR)                    extract text, per-character confide
       ▼
 NORMALISE                                    Indian plate format validation
       ▼
-CONFIDENCE GATE                              accept only above threshold; else "unverified"
+CONFIDENCE GATE                              flag format_invalid rather than discard
       ▼
-EVIDENCE PACKET                              keyframes + plate + confidence + GPS + timestamp
-                                              + device ID + SHA-256 hash (see BACKEND.md §Evidence)
+EVIDENCE PACKET                              minimum 3 keyframes (pre, incident, plate),
+                                              GPS, heading, speed, UTC timestamp, device ID
+                                              + SHA-256 hash (signed with device key)
 ```
 
 **Privacy rule:** ANPR runs only on incident-flagged tracks, never as a continuous surveillance sweep of all passing vehicles. This is both a privacy safeguard and a compute optimisation, and the architecture deliberately makes continuous plate logging unavailable rather than merely disabled.

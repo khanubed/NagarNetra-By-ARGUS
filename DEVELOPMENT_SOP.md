@@ -104,7 +104,7 @@ Every PR must include:
 - [ ] RBAC matrix (`BACKEND.md` §13) spot-checked per role with a real login, not just unit tests.
 - [ ] Both themes checked on every touched screen, including map tiles, charts, and toasts.
 - [ ] No console errors/warnings on load or during normal navigation.
-- [ ] Restricted-class data confirmed unreachable from the public portal and citizen app via manual API probing, not just code review.
+- [ ] Restricted-class data (hit-and-run, plate strings, evidence packets) confirmed unreachable from the public portal and citizen app via automated negative tests and manual API probing, not just code review. Enforce no rendering when role-switcher is Public or Citizen.
 - [ ] SLA escalation verified end-to-end with a time-shifted test ticket.
 - [ ] Illustrative/demo data clearly labelled wherever shown; no synthetic figure presented as measured.
 

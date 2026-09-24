@@ -49,6 +49,7 @@ Six named capabilities form the product identity — full specifications in [`AR
 | **Urban Risk Index™** | Continuously updated 0–100 composite risk score per ward, combining road damage, traffic density, accident frequency, waterlogging, school proximity, and citizen complaints |
 | **Black Spot Intelligence Engine** | Spatial clustering that turns scattered detections into ranked, high-risk road segments with a compound causal profile — "17 potholes, 4 near-misses, school nearby" instead of "pothole found" |
 | **Citizen + AI Verification** | Three-tier confidence model: AI detection + citizen confirmation + field-engineer verification compound into a final trust score (e.g. 84% → 97%) |
+| **Road Crime Intelligence (ANPR)** | Tamper-evident evidence workflow for hit-and-run/rash-driving, routing tracked vehicle plate OCR and keyframes securely to Traffic Police |
 | **Department SLA Engine** | Automatic jurisdiction resolution, department assignment, ticket creation, SLA timers, and rule-based escalation |
 | **City Pulse Score™** | Single executive KPI (0–100) aggregating Road Health, Traffic Flow, Public Safety, and Department Efficiency |
 | **Route Quality Score™** | Per-bus-route 0–100 grade combining road condition, traffic delay, waterlogging exposure, and safety events |
