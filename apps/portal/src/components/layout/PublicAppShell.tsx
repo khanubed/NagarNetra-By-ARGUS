@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Menu, Eye, Shield, X } from 'lucide-react';
+import { Menu, Eye, Shield, X, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
 const NAV_LINKS = [
@@ -46,6 +46,14 @@ export default function PublicAppShell() {
               </Link>
             ))}
             <div className="w-px h-5 bg-border mx-2"></div>
+            <a 
+              href="https://nagar-netra-authority.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium bg-muted text-muted-foreground px-4 py-2 rounded-full hover:bg-muted/80 transition-colors flex items-center gap-2"
+            >
+              Authority Dashboard <ExternalLink size={14} />
+            </a>
             <button className="text-sm font-medium bg-brand-primary text-white px-4 py-2 rounded-full hover:bg-brand-primary/90 transition-colors shadow-sm">
               Report Issue
             </button>
@@ -75,6 +83,14 @@ export default function PublicAppShell() {
                 {link.label}
               </Link>
             ))}
+            <a 
+              href="https://nagar-netra-authority.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 text-base font-medium bg-muted text-muted-foreground px-4 py-3 rounded-md w-full flex items-center justify-center gap-2"
+            >
+              Authority Dashboard <ExternalLink size={18} />
+            </a>
             <button className="mt-2 text-base font-medium bg-brand-primary text-white px-4 py-3 rounded-md w-full text-center">
               Report Issue
             </button>

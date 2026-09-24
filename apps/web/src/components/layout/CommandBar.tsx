@@ -1,4 +1,4 @@
-import { Bell, Search, UserCircle, Moon, Sun } from 'lucide-react';
+import { Bell, Search, UserCircle, Moon, Sun, ExternalLink } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '../../app/store';
@@ -30,6 +30,14 @@ export const CommandBar = () => {
         </div>
       </div>
       <div className="flex items-center gap-4">
+        <a 
+          href="https://nagar-netra-public.vercel.app/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="hidden md:flex items-center gap-2 text-sm font-medium bg-brand-primary text-white px-3 py-1.5 rounded-md hover:bg-brand-primary/90 transition-colors"
+        >
+          Public Portal <ExternalLink size={16} />
+        </a>
         <button 
           onClick={() => setIsDark(!isDark)}
           className="p-2 text-muted-foreground hover:bg-accent rounded-full transition-colors"
