@@ -1,5 +1,5 @@
 import { useGetRecentEventsQuery } from '../features/apiSlice';
-import { CircleMarker, Popup } from 'react-leaflet';
+import { CircleMarker } from 'react-leaflet';
 import { MapShell } from '../components/map/MapShell';
 import 'leaflet/dist/leaflet.css';
 import { useState } from 'react';

@@ -1,7 +1,7 @@
 import { MapShell } from '../components/map/MapShell';
 import { PageHeader } from '../components/layout/PageHeader';
 import { Polyline, Popup } from 'react-leaflet';
-import { Download, Search, AlertTriangle, ShieldCheck, Activity } from 'lucide-react';
+import { Download, Search, AlertTriangle, Activity } from 'lucide-react';
 import { useState } from 'react';
 
 // Fake Data for Road Segments

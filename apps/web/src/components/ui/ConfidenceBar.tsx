@@ -1,4 +1,4 @@
-import { cn } from '@ui/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface ConfidenceBarProps {
   score: number; // 0 to 100

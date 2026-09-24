@@ -105,7 +105,7 @@ export const WardIntelligence = () => {
             <h3 className="font-semibold text-amber-900 mb-2 relative z-10">Top Performing Ward</h3>
             <div className="text-3xl font-black text-amber-600 mb-1 relative z-10">Bellandur (150)</div>
             <p className="text-amber-800/90 text-sm mb-4 relative z-10">Highest resolution rate this week. 92% of AI-detected issues fixed within 48 hours.</p>
-            <div className="flex items-center gap-2 text-sm font-semibold text-amber-800 bg-amber-100/70 p-2.5 rounded-md inline-flex relative z-10">
+            <div className="flex items-center gap-2 text-sm font-semibold text-amber-800 bg-amber-100/70 p-2.5 rounded-md relative z-10">
               <ShieldCheck size={16} /> 340 Issues Resolved
             </div>
           </div>

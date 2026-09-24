@@ -1,6 +1,6 @@
 import { useGetAnalyticsQuery, useGetDashboardStatsQuery } from '../features/apiSlice';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { HeartPulse, TrendingUp, AlertTriangle, ShieldCheck, Activity } from 'lucide-react';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { TrendingUp, AlertTriangle, ShieldCheck, Activity } from 'lucide-react';
 import { PageHeader } from '../components/layout/PageHeader';
 
 const getScoreColor = (score: number) => {

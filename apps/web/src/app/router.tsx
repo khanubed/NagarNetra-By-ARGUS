@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { AppShell } from '../components/layout/AppShell';
+import { Landing } from '../pages/Landing';
 import { Dashboard } from '../pages/Dashboard';
 import { Alerts } from '../pages/Alerts';
 import { Tickets } from '../pages/Tickets';
@@ -21,7 +22,8 @@ export const router = createBrowserRouter([
     path: '/',
     element: <AppShell />,
     children: [
-      { index: true, element: <Dashboard /> },
+      { index: true, element: <Landing /> },
+      { path: 'dashboard', element: <Dashboard /> },
       { path: 'alerts', element: <Alerts /> },
       { path: 'tickets', element: <Tickets /> },
       { path: 'heatmaps', element: <Heatmaps /> },

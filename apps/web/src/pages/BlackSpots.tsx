@@ -1,8 +1,8 @@
 import { useGetBlackSpotsQuery } from '../features/apiSlice';
-import { CircleMarker, Popup } from 'react-leaflet';
+import { CircleMarker } from 'react-leaflet';
 import { MapShell } from '../components/map/MapShell';
 import 'leaflet/dist/leaflet.css';
-import { AlertTriangle, MapPin, Search } from 'lucide-react';
+import { MapPin, Search } from 'lucide-react';
 import { useState } from 'react';
 
 export const BlackSpots = () => {
