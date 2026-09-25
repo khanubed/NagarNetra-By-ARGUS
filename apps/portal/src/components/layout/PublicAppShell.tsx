@@ -1,131 +1,76 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
-import { Menu, Eye, Shield, X, ExternalLink } from "lucide-react";
+import { Outlet } from "react-router-dom";
+import { Menu, Shield, X, Bell, ExternalLink } from "lucide-react";
 import { useState } from "react";
+import { NavRail } from "./NavRail";
 
-const NAV_LINKS = [
-  { path: "/", label: "Home" },
-  { path: "/route-planner", label: "Route Planner" },
-  { path: "/road-health", label: "Road Health Map" },
-  { path: "/black-spots", label: "Black Spots" },
-  { path: "/transparency", label: "Transparency" },
-  { path: "/verification", label: "AI Verification" },
-  { path: "/track", label: "Track Issue" },
-  { path: "/ward-intelligence", label: "Ward Intel" },
-  { path: "/alerts", label: "Alerts" },
-  { path: "/civic-hub", label: "Civic Hub" },
-];
-
-export default function PublicAppShell() {
-  const location = useLocation();
+export const PublicAppShell = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
-      {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-        <div className="container mx-auto px-4 h-24 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-brand-primary font-bold text-xl tracking-tight"
+    <div className="flex h-screen w-full overflow-hidden bg-background text-foreground font-sans">
+      {/* Sidebar Navigation */}
+      <div className={`fixed inset-y-0 left-0 z-50 transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <NavRail />
+      </div>
+
+      {/* Mobile Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Main Content Area */}
+      <div className="flex flex-col flex-1 overflow-hidden min-w-0">
+        
+        {/* Top Header / Mobile Menu Toggle */}
+        <header className="h-16 flex items-center justify-between px-4 md:px-8 border-b bg-background/95 backdrop-blur z-30 shrink-0">
+          <div className="flex items-center gap-4">
+            <button
+              className="md:hidden p-2 -ml-2 text-foreground"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              <Eye size={24} className="text-brand-accent" />
-              NAGARNETRA{" "}
-              <span className="font-light opacity-70 hidden sm:inline">
-                | Public Portal
-              </span>
-            </Link>
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            <h1 className="text-lg font-semibold tracking-tight hidden sm:block">Public Transparency Portal</h1>
           </div>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`text-sm font-medium transition-colors hover:text-brand-primary ${
-                  location.pathname === link.path
-                    ? "text-brand-primary"
-                    : "text-muted-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="w-px h-5 bg-border mx-2"></div>
-            <div className="flex flex-col gap-1">
-
-            
+          
+          <div className="flex items-center gap-4">
             <a
               href="https://nagar-netra-authority.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium bg-muted text-muted-foreground px-4 py-2 rounded-full hover:bg-muted/80 transition-colors flex items-center gap-2"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 hidden sm:flex"
             >
               Authority Dashboard <ExternalLink size={14} />
             </a>
-            <button className="text-sm font-medium bg-brand-primary text-white px-4 py-2 rounded-full hover:bg-brand-primary/90 transition-colors shadow-sm">
-              Report Issue
+            <button className="relative p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground">
+              <Bell size={20} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-brand-primary rounded-full ring-2 ring-background"></span>
             </button>
-            </div>
-          </nav>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Nav Dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-background border-b shadow-lg py-4 px-4 flex flex-col gap-4 z-40">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-base font-medium py-2 border-b border-border/50 ${
-                  location.pathname === link.path
-                    ? "text-brand-primary"
-                    : "text-muted-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-
-            <a
-              href="https://nagar-netra-authority.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 text-base font-medium bg-muted text-muted-foreground px-4 py-3 rounded-md w-full flex items-center justify-center gap-2"
-            >
-              Authority Dashboard <ExternalLink size={18} />
-            </a>
-            <button className="mt-2 text-base font-medium bg-brand-primary text-white px-4 py-3 rounded-md w-full text-center">
+            <button className="text-sm font-medium bg-brand-primary text-white px-4 py-2 rounded-full hover:bg-brand-primary/90 transition-colors shadow-sm hidden sm:block">
               Report Issue
             </button>
           </div>
-        )}
-      </header>
+        </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
-        <Outlet />
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t py-8 bg-muted/20">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Shield size={16} /> NagarNetra City Intelligence Platform
+        <main className="flex-1 overflow-y-auto bg-muted/20 relative">
+          <div className="p-4 md:p-8 max-w-[1600px] mx-auto min-h-full flex flex-col">
+            <Outlet />
+            
+            {/* Footer */}
+            <footer className="mt-auto pt-12 pb-6">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Shield size={14} /> NagarNetra City Intelligence Platform
+                </div>
+                <div>Built for civic transparency. Data updated in real-time.</div>
+              </div>
+            </footer>
           </div>
-          <div>Built for civic transparency. Data updated in real-time.</div>
-        </div>
-      </footer>
+        </main>
+      </div>
     </div>
   );
-}
+};

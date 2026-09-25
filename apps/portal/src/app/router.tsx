@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import PublicAppShell from '../components/layout/PublicAppShell';
+import { PublicAppShell } from '../components/layout/PublicAppShell';
 
 // Pages to be created
 // Pages to be created
