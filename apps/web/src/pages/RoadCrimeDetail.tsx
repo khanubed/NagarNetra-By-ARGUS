@@ -63,34 +63,34 @@ export const RoadCrimeDetail = () => {
               <div className="aspect-video bg-black/90 rounded-lg relative overflow-hidden flex items-center justify-center border border-muted">
                 {/* Simulated Bounding Box for ANPR */}
                 <div className="absolute inset-0 z-10 pointer-events-none">
-                  <div className="absolute border-2 border-green-500 w-32 h-12 top-1/2 left-1/2 transform -translate-x-1/2 translate-y-8 flex items-end justify-center pb-1">
+                  <div className="absolute border-2 border-green-500 w-32 h-12 top-[52%] left-[77%] transform -translate-x-1/2 translate-y-8 flex items-end justify-center pb-1">
                     <span className="bg-green-500 text-black text-[10px] font-bold px-1 rounded-sm -mb-5 whitespace-nowrap">
                       Plate: 94%
                     </span>
                   </div>
-                  <div className="absolute border-2 border-red-500 w-64 h-48 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4">
+                  <div className="absolute border-2 border-red-500 w-64 h-48 top-1/2 left-[70%] transform -translate-x-1/2 -translate-y-1/4">
                     <span className="bg-red-500 text-white text-[10px] font-bold px-1 rounded-sm absolute -top-4 left-[-2px]">
                       Vehicle (Trajectory Anomaly)
                     </span>
                   </div>
                 </div>
                 <img 
-                  src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1200&auto=format&fit=crop" 
+                  src="/images/anpr_evidence.jpg" 
                   alt="Traffic camera" 
                   className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
                 />
               </div>
               <div className="grid grid-cols-3 gap-4 mt-4">
                 <div className="aspect-video bg-muted rounded border border-primary ring-2 ring-primary/20 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover opacity-70" alt="Frame 1" />
+                  <img src="/images/anpr_evidence.jpg" className="w-full h-full object-cover opacity-70" alt="Frame 1" />
                   <span className="absolute bottom-1 left-1 bg-black/70 text-white text-[10px] px-1 rounded font-mono">T-0.5s</span>
                 </div>
                 <div className="aspect-video bg-muted rounded border overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover opacity-70" alt="Frame 2" />
+                  <img src="/images/anpr_evidence.jpg" className="w-full h-full object-cover opacity-70" alt="Frame 2" />
                   <span className="absolute bottom-1 left-1 bg-black/70 text-white text-[10px] px-1 rounded font-mono">T+0.0s (Impact)</span>
                 </div>
                 <div className="aspect-video bg-muted rounded border overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=400&auto=format&fit=crop" className="w-full h-full object-cover opacity-70" alt="Frame 3" />
+                  <img src="/images/anpr_evidence.jpg" className="w-full h-full object-cover opacity-70" alt="Frame 3" />
                   <span className="absolute bottom-1 left-1 bg-black/70 text-white text-[10px] px-1 rounded font-mono">T+1.5s (Departure)</span>
                 </div>
               </div>
